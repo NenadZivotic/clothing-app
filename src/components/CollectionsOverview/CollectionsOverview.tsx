@@ -4,15 +4,13 @@ import { useSelector } from "react-redux";
 
 import styles from "./CollectionsOverview.module.scss";
 
-import { CollectionModel, CollectionsModel } from "../../models";
+import { CollectionModel } from "../../models";
 import CollectionPreview from "../CollectionPreview/CollectionPreview";
+import { selectCollections } from "../../redux/shop/shop.selectors";
+import { CollectionsFromFB } from "../../models/CollectionsFromFB.model";
 
 const CollectionsOverview: React.FC = () => {
-  const collections: CollectionsModel | null = useSelector(
-    (state: { shop: { collections: CollectionsModel } }) => {
-      return state.shop.collections;
-    }
-  );
+  const collections: CollectionsFromFB | null = useSelector(selectCollections);
 
   const overviewCollections: CollectionModel[] = collections
     ? Object.keys(collections).map((key) => (collections as any)[key])
